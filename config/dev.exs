@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :calendlex, Calendlex.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "example",
   hostname: "localhost",
   database: "calendlex_dev",
   stacktrace: true,
