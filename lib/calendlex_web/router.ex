@@ -16,6 +16,8 @@ defmodule CalendlexWeb.Router do
 
   scope "/", CalendlexWeb do
     pipe_through :browser
+
+    live "/", PageLive
   end
 
   # Other scopes may use custom stacks.
