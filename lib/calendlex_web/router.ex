@@ -14,14 +14,16 @@ defmodule CalendlexWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CalendlexWeb do
-    pipe_through :browser
-
-    live "/", PageLive
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", CalendlexWeb do
   #   pipe_through :api
   # end
+
+  live_session :public, on_mount: CalendlexWeb.Live.InitAssigns do
+    scope "/", CalendlexWeb do
+      pipe_through :browser
+
+      live "/", PageLive
+    end
+  end
 end
