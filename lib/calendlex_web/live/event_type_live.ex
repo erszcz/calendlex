@@ -12,7 +12,7 @@ defmodule CalendlexWeb.EventTypeLive do
         {:ok, socket}
 
       {:error, :not_found} ->
-        {:ok, socket, layout: {CalendlexWeb.LayoutView, "not_found.html"}}
+        {:ok, socket, layout: {CalendlexWeb.Layouts, :not_found}}
     end
   end
 end
