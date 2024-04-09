@@ -1,12 +1,12 @@
-<div class="w-3/5 mx-auto">
+<div class="mx-auto">
   <div class="flex flex-auto p-6 mb-2 bg-white border border-gray-200 shadow-md rounded-md gap-x-2">
     <div class="flex-1">
       <div class="mb-4">
-        <%= live_redirect to: ~p"/" do %>
+        <.link href={~p"/"}>
           <div class="flex items-center justify-center inline-block text-xl text-blue-500 border rounded-full w-9 h-9">
             <i class="fas fa-arrow-left"></i>
           </div>
-        <% end %>
+        </.link>
       </div>
       <h4 class="text-gray-500">Bigardone</h4>
       <h1 class="my-3 text-xl text-black"><%= @event_type.name %></h1>
