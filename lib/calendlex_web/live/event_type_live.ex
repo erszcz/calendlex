@@ -48,6 +48,16 @@ defmodule CalendlexWeb.EventTypeLive do
     |> assign(next_month: next_month)
   end
 
+  defp current_from_params(socket, %{"date" => date}) do
+    case Timex.parse(date, "{YYYY}-{0M}-{D}") do
+      {:ok, current} ->
+        NaiveDateTime.to_date(current)
+
+      _ ->
+        today(socket)
+    end
+  end
+
   defp current_from_params(socket, %{"month" => month}) do
     case Timex.parse("#{month}-01", "{YYYY}-{0M}-{D}") do
       {:ok, current} ->
