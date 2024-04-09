@@ -39,16 +39,16 @@ defmodule CalendlexWeb.Components.EventType do
           <%= Timex.format!(@current, "{Mshort} {YYYY}") %>
         </div>
         <div class="flex justify-end flex-1 text-right">
-          <%= live_patch to: @previous_month_path do %>
+          <.link href={@previous_month_path}>
             <button class="flex items-center justify-center w-10 h-10 text-blue-700 align-middle rounded-full hover:bg-blue-200">
               <i class="fas fa-chevron-left"></i>
             </button>
-          <% end %>
-          <%= live_patch to: @next_month_path do %>
+          </.link>
+          <.link href={@next_month_path}>
             <button class="flex items-center justify-center w-10 h-10 text-blue-700 align-middle rounded-full hover:bg-blue-200">
               <i class="fas fa-chevron-right"></i>
             </button>
-          <% end %>
+          </.link>
         </div>
       </div>
       <div class="mb-6 text-center uppercase calendar grid grid-cols-7 gap-y-2 gap-x-2">
@@ -92,7 +92,7 @@ defmodule CalendlexWeb.Components.EventType do
       class_list([
         {"grid-column-#{weekday}", index == 0},
         {"content-center w-10 h-10 rounded-full justify-center items-center flex", true},
-        {"bg-blue text-blue-600 font-bold hover:bg-blue-200", not disabled},
+        {"bg-blue-50 text-blue-600 font-bold hover:bg-blue-200", not disabled},
         {"text-gray-200 cursor-default pointer-events-none", disabled}
       ])
 
@@ -104,9 +104,9 @@ defmodule CalendlexWeb.Components.EventType do
       |> assign(:class, class)
 
     ~H"""
-    <%= live_patch to: @date_path, class: @class, disabled: @disabled do %>
+    <.link href={@date_path} class={@class} disabled={@disabled}>
       <%= @text %>
-    <% end %>
+    </.link>
     """
   end
 end
