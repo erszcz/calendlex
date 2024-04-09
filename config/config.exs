@@ -11,7 +11,8 @@ config :calendlex,
   ecto_repos: [Calendlex.Repo],
   generators: [timestamp_type: :utc_datetime],
   owner: %{
-    name: "erszcz"
+    name: "erszcz",
+    time_zone: "Europe/Warsaw"
   }
 
 # Configures the endpoint
