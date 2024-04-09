@@ -1,7 +1,7 @@
 defmodule CalendlexWeb.PageLive do
   use CalendlexWeb, :live_view
 
-  alias CalendlexWeb.Componontes.EventType
+  alias CalendlexWeb.Components.EventType
 
   @impl true
   def mount(_params, _session, socket) do
