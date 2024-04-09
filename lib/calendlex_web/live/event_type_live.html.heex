@@ -1,1 +1,26 @@
-<h1>EventTypeLive</h1>
+<div class="w-3/5 mx-auto">
+  <div class="flex flex-auto p-6 mb-2 bg-white border border-gray-200 shadow-md rounded-md gap-x-2">
+    <div class="flex-1">
+      <div class="mb-4">
+        <%= live_redirect to: ~p"/" do %>
+          <div class="flex items-center justify-center inline-block text-xl text-blue-500 border rounded-full w-9 h-9">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+        <% end %>
+      </div>
+      <h4 class="text-gray-500">Bigardone</h4>
+      <h1 class="my-3 text-xl text-black"><%= @event_type.name %></h1>
+      <div class="flex flex-row items-center mb-2 text-gray-500 gap-2">
+        <div class="text-gray-300">
+          <i class="far fa-clock"></i>
+        </div>
+        <%= @event_type.duration %> min
+      </div>
+    </div>
+    <div class="px-8 border-l border-gray-100">
+      <header class="mb-8">
+          <h3 class="text-lg font-semibold text-gray-900">Select a date & time</h3>
+      </header>
+    </div>
+  </div>
+</div>
