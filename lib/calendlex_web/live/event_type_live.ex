@@ -14,7 +14,7 @@ defmodule CalendlexWeb.EventTypeLive do
           |> assign(event_type: event_type)
           |> assign(page_title: event_type.name)
 
-        {:ok, socket}
+        {:ok, socket, temporary_assigns: [time_slots: []]}
 
       {:error, :not_found} ->
         {:ok, socket, layout: {CalendlexWeb.Layouts, :not_found}}
@@ -22,7 +22,10 @@ defmodule CalendlexWeb.EventTypeLive do
   end
 
   def handle_params(params, _uri, socket) do
-    socket = assign_dates(socket, params)
+    socket =
+      socket
+      |> assign_dates(params)
+      |> assign_time_slots(params)
 
     {:noreply, socket}
   end
@@ -49,6 +52,20 @@ defmodule CalendlexWeb.EventTypeLive do
     |> assign(previous_month: previous_month)
     |> assign(next_month: next_month)
   end
+
+  defp assign_time_slots(socket, %{"date" => _}) do
+    date = socket.assigns.current
+    time_zone = socket.assigns.time_zone
+    event_duration = socket.assigns.event_type.duration
+
+    time_slots = Calendlex.build_time_slots(date, time_zone, event_duration)
+
+    socket
+    |> assign(time_slots: time_slots)
+    |> assign(selected_date: date)
+  end
+
+  defp assign_time_slots(socket, _), do: socket
 
   defp current_from_params(socket, %{"date" => date}) do
     case Timex.parse(date, "{YYYY}-{0M}-{D}") do

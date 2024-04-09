@@ -3,6 +3,7 @@ defmodule CalendlexWeb.Components.EventType do
 
   import CalendlexWeb.LiveViewHelpers, only: [class_list: 1]
 
+  alias CalendlexWeb.Router.Helpers, as: Routes
   alias __MODULE__
 
   def selector(assigns) do
@@ -107,6 +108,38 @@ defmodule CalendlexWeb.Components.EventType do
     <.link href={@date_path} class={@class}>
       <%= @text %>
     </.link>
+    """
+  end
+
+  def time_slot(assigns) do
+    %{
+      socket: socket,
+      event_type: event_type,
+      time_slot: time_slot,
+      time_zone: time_zone
+    } = assigns
+
+    text =
+      time_slot
+      |> DateTime.shift_zone!(time_zone)
+      |> Timex.format!("{h24}:{m}")
+
+    slot_string = DateTime.to_iso8601(time_slot)
+
+    schedule_path =
+      socket
+      |> Routes.live_path(CalendlexWeb.ScheduleEventLive, event_type.slug, slot_string)
+      |> URI.decode()
+
+    assigns =
+      assigns
+      |> assign(text: text)
+      |> assign(schedule_path: schedule_path)
+
+    ~H"""
+    <%= live_redirect to: @schedule_path, class: "text-center block w-full p-4 mb-2 font-bold text-blue-600 border border-blue-300 rounded-md hover:border-blue-600" do %>
+      <%= @text %>
+    <% end %>
     """
   end
 end

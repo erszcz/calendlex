@@ -12,7 +12,9 @@ config :calendlex,
   generators: [timestamp_type: :utc_datetime],
   owner: %{
     name: "erszcz",
-    time_zone: "Europe/Warsaw"
+    time_zone: "Europe/Warsaw",
+    day_start: 9,
+    day_end: 19
   }
 
 # Configures the endpoint
