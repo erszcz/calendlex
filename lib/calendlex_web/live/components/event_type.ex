@@ -104,7 +104,7 @@ defmodule CalendlexWeb.Components.EventType do
       |> assign(:class, class)
 
     ~H"""
-    <.link href={@date_path} class={@class} disabled={@disabled}>
+    <.link href={@date_path} class={@class}>
       <%= @text %>
     </.link>
     """

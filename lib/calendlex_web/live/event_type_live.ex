@@ -4,7 +4,9 @@ defmodule CalendlexWeb.EventTypeLive do
   alias CalendlexWeb.Components.EventType
   alias Timex.Duration
 
-  def mount(%{"event_type_slug" => slug} = params, _session, socket) do
+  def mount(params, _session, socket) do
+    %{"event_type_slug" => slug} = params
+
     case Calendlex.get_event_type_by_slug(slug) do
       {:ok, event_type} ->
         socket =
