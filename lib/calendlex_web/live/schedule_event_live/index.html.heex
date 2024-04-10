@@ -1,43 +1,43 @@
-<.header>
-  Listing Scheduled events
-  <:actions>
-    <.link patch={~p"/scheduled_events/new"}>
-      <.button>New Schedule event</.button>
-    </.link>
-  </:actions>
-</.header>
-
-<.table
-  id="scheduled_events"
-  rows={@streams.scheduled_events}
-  row_click={fn {_id, schedule_event} -> JS.navigate(~p"/scheduled_events/#{schedule_event}") end}
->
-  <:col :let={{_id, schedule_event}} label="Name"><%= schedule_event.name %></:col>
-  <:col :let={{_id, schedule_event}} label="Start at"><%= schedule_event.start_at %></:col>
-  <:col :let={{_id, schedule_event}} label="End at"><%= schedule_event.end_at %></:col>
-  <:action :let={{_id, schedule_event}}>
-    <div class="sr-only">
-      <.link navigate={~p"/scheduled_events/#{schedule_event}"}>Show</.link>
+<div class="mx-auto">
+  <div class="flex flex-auto p-6 mb-2 bg-white border border-gray-200 shadow-lg rounded-md gap-x-2">
+    <div class="flex-1">
+      <div class="mb-4">
+        <.link href={~p"/#{@event_type.slug}"}>
+          <div>
+            <div class="flex items-center justify-center inline-block text-xl text-blue-500 border rounded-full w-9 h-9">
+              <i class="fas fa-arrow-left"></i>
+            </div>
+          </div>
+        </.link>
+      </div>
+      <h4 class="text-gray-500"><%= @owner.name %></h4>
+      <h1 class="my-3 text-xl text-black"><%= @event_type.name %></h1>
+      <div class="flex flex-row items-center mb-2 font-bold text-gray-500 gap-2">
+        <i class="far fa-clock"></i>
+        <%= @event_type.duration %> min
+      </div>
+      <div class="flex flex-row items-center mb-2 font-bold text-green-500 gap-2">
+        <i class="far fa-calendar-alt"></i>
+        <%= CalendlexWeb.LiveViewHelpers.schedule_string(@start_at, @end_at, @time_zone) %>
+      </div>
+      <div class="flex flex-row items-center font-bold text-gray-500 gap-2">
+        <i class="fas fa-globe-americas"></i>
+        <%= @time_zone %>
+      </div>
     </div>
-    <.link patch={~p"/scheduled_events/#{schedule_event}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, schedule_event}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: schedule_event.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table>
-
-<.modal :if={@live_action in [:new, :edit]} id="schedule_event-modal" show on_cancel={JS.patch(~p"/scheduled_events")}>
-  <.live_component
-    module={CalendlexWeb.ScheduleEventLive.FormComponent}
-    id={@schedule_event.id || :new}
-    title={@page_title}
-    action={@live_action}
-    schedule_event={@schedule_event}
-    patch={~p"/scheduled_events"}
-  />
-</.modal>
+    <div class="w-3/5 px-8 border-l border-gray-100">
+      <.live_component
+        module={CalendlexWeb.ScheduleEventLive.FormComponent}
+        id={:new}
+        title={@page_title}
+        action={@live_action}
+        event={@event}
+        start_at={@start_at}
+        end_at={@end_at}
+        event_type={@event_type}
+        time_zone={@time_zone}
+        patch={~p"/#{@event_type_slug}/#{@time_slot}"}
+      />
+    </div>
+  </div>
+</div>
