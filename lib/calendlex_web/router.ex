@@ -32,7 +32,7 @@ defmodule CalendlexWeb.Router do
       live "/:event_type_slug/:time_slot", ScheduleEventLive.Index, :new
       #live "/:event_type_slug/scheduled_events/:id/edit", ScheduleEventLive.Index, :edit
 
-      #live "/:event_type_slug/scheduled_events/:id", ScheduleEventLive.Show, :show
+      live "/events/:event_type_slug/:event_id", ScheduleEventLive.Show, :show
       #live "/:event_type_slug/scheduled_events/:id/show/edit", ScheduleEventLive.Show, :edit
     end
   end

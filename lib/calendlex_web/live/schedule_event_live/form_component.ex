@@ -92,7 +92,7 @@ defmodule CalendlexWeb.ScheduleEventLive.FormComponent do
         {:noreply,
           socket
           |> put_flash(:info, "New event created successfully")
-          |> push_patch(to: socket.assigns.patch)}
+          |> push_navigate(to: socket.assigns.patch <> event.id)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
