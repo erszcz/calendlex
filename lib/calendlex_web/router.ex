@@ -25,7 +25,15 @@ defmodule CalendlexWeb.Router do
 
       live "/", PageLive
       live "/:event_type_slug", EventTypeLive
-      live "/:event_type_slug/:time_slot", ScheduleEventLive
+
+      #live "/:event_type_slug/:time_slot", ScheduleEventLive
+
+      #live "/:event_type_slug/scheduled_events", ScheduleEventLive.Index, :index
+      live "/:event_type_slug/:time_slot", ScheduleEventLive.Index, :new
+      #live "/:event_type_slug/scheduled_events/:id/edit", ScheduleEventLive.Index, :edit
+
+      #live "/:event_type_slug/scheduled_events/:id", ScheduleEventLive.Show, :show
+      #live "/:event_type_slug/scheduled_events/:id/show/edit", ScheduleEventLive.Show, :edit
     end
   end
 end

@@ -130,7 +130,7 @@ defmodule CalendlexWeb.Components.EventType do
       socket
       ## TODO: make this work with verified routes
       ##       and then disable generating helpers in lib/calendlex_web.ex
-      |> Routes.live_path(CalendlexWeb.ScheduleEventLive, event_type.slug, slot_string)
+      |> Routes.schedule_event_index_path(:new, event_type.slug, slot_string)
       |> URI.decode()
 
     assigns =
